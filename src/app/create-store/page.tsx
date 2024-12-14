@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { api } from "../../../utils/url";
+import { toast } from "react-hot-toast";
 
 const CreateStore = () => {
   const [formData, setFormData] = useState({
@@ -12,9 +14,10 @@ const CreateStore = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -31,31 +34,35 @@ const CreateStore = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch("/api/stores", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+    const response = await api({
+      url: "/store/create-store",
+      type: "post",
+      data: formData,
     });
 
-    if (response.ok) {
-      setMessage("Store created successfully!");
+    if (response.status === 201) {
+      toast.success("New store created successfully!");
       setFormData({ name: "", username: "", password: "", aggregators: [] });
     } else {
-      const errorData = await response.json();
-      setMessage(errorData.error || "Failed to create store");
+      toast.error("Failed to create store. Please try again.");
     }
   };
 
   return (
     <div className="font-Manrope min-h-screen bg-gray-900 text-white flex items-center justify-center">
       <div className="max-w-lg w-full bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-yellow-300 mb-5 text-center">Create Store</h1>
+        <h1 className="text-3xl font-bold text-yellow-300 mb-5 text-center">
+          Create Store
+        </h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium mb-2 text-green-400">Store Name</label>
+            <label className="block text-sm font-medium mb-2 text-green-400">
+              Store Name
+            </label>
             <input
               type="text"
               name="name"
+              placeholder="e.g. Aishwarya's Kitchen"
               value={formData.name}
               onChange={handleChange}
               className="w-full border border-gray-700 bg-gray-900 rounded-md p-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -63,10 +70,13 @@ const CreateStore = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-green-400">Username</label>
+            <label className="block text-sm font-medium mb-2 text-green-400">
+              Username
+            </label>
             <input
               type="text"
               name="username"
+              placeholder="e.g. test123"
               value={formData.username}
               onChange={handleChange}
               className="w-full border border-gray-700 bg-gray-900 rounded-md p-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -74,10 +84,13 @@ const CreateStore = () => {
             />
           </div>
           <div className="relative">
-            <label className="block text-sm font-medium mb-2 text-green-400">Password</label>
+            <label className="block text-sm font-medium mb-2 text-green-400">
+              Password
+            </label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
+              placeholder="********"
               value={formData.password}
               onChange={handleChange}
               className="w-full border border-gray-700 bg-gray-900 rounded-md p-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -92,20 +105,24 @@ const CreateStore = () => {
             </button>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-green-400">Aggregators</label>
+            <label className="block text-sm font-medium mb-2 text-green-400">
+              Aggregators
+            </label>
             <div className="flex flex-wrap gap-3">
-              {["Zomato", "Swiggy", "Uber Eats", "DoorDash", "Deliveroo"].map((agg) => (
-                <label key={agg} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    value={agg}
-                    checked={formData.aggregators.includes(agg)}
-                    onChange={handleAggregatorChange}
-                    className="form-checkbox text-yellow-500 bg-gray-900 border-gray-700 focus:ring-yellow-500"
-                  />
-                  <span className="text-white">{agg}</span>
-                </label>
-              ))}
+              {["Zomato", "Swiggy", "UberEats", "DoorDash", "Deliveroo"].map(
+                (agg) => (
+                  <label key={agg} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      value={agg}
+                      checked={formData.aggregators.includes(agg)}
+                      onChange={handleAggregatorChange}
+                      className="form-checkbox text-yellow-500 bg-gray-900 border-gray-700 focus:ring-yellow-500"
+                    />
+                    <span className="text-white">{agg}</span>
+                  </label>
+                )
+              )}
             </div>
           </div>
           <button
@@ -115,9 +132,6 @@ const CreateStore = () => {
             Create Store
           </button>
         </form>
-        {message && (
-          <p className="mt-4 text-center text-yellow-400">{message}</p>
-        )}
       </div>
     </div>
   );
