@@ -19,13 +19,13 @@ const Home = () => {
         </p>
         <div className="space-y-4">
           <Link href="/create-store">
-            <p className="block bg-green-500 text-white text-lg font-semibold py-3 px-6 rounded-md hover:bg-green-600 m-4">
+            <p className="block bg-green-500 text-white text-lg font-semibold py-3 px-6 rounded-2xl hover:bg-green-600 m-4">
               Create Store
             </p>
           </Link>
-          <Link href="/order-management">
-            <p className="block bg-yellow-500 text-gray-900 text-lg font-semibold py-3 px-6 rounded-md hover:bg-yellow-600 m-4">
-              Order Management
+          <Link href="/manage-orders">
+            <p className="block bg-yellow-500 text-gray-900 text-lg font-semibold py-3 px-6 rounded-2xl hover:bg-yellow-600 m-4">
+              Manage Orders
             </p>
           </Link>
         </div>

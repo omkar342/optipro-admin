@@ -127,7 +127,7 @@ const CreateStore = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-green-500 text-white font-semibold rounded-md py-3 hover:bg-green-600 focus:outline-none"
+            className="w-full bg-green-500 text-white font-semibold rounded-2xl py-3 hover:bg-green-600 focus:outline-none"
           >
             Create Store
           </button>
