@@ -19,9 +19,8 @@ const OrderManagement = () => {
           url: "/order/latest-delivered-order-time",
           type: "get",
         });
-        console.log(response, "response");
+
         if (response.status) {
-          //   const result = await response.json();
           const result: any = response.data;
           setData(result.storeAggregatorData);
         } else {
