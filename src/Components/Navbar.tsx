@@ -13,17 +13,17 @@ function Navbar() {
       </div>
       {/* Navigation Links */}
       <div className="ml-auto flex space-x-4 hidden sm:flex">
-        <Link href="/create-store">
-          <p className="hover:text-yellow-300 cursor-pointer">Create Store</p>
+        <Link href="/create-store" className="hover:text-yellow-300 cursor-pointer">
+          Create Store
         </Link>
-        <Link href="/manage-orders">
-          <p className="hover:text-yellow-300 cursor-pointer">Manage Orders</p>
+        <Link href="/manage-orders" className="hover:text-yellow-300 cursor-pointer">
+          Manage Orders
         </Link>
-        <Link href="/login">
-          <p className="hover:text-yellow-300 cursor-pointer">Login</p>
+        <Link href="/login" className="hover:text-yellow-300 cursor-pointer">
+          Login
         </Link>
-        <Link href="/get-app">
-          <p className="hover:text-yellow-300 cursor-pointer">Get App</p>
+        <Link href="/get-app" className="hover:text-yellow-300 cursor-pointer">
+          Get App
         </Link>
       </div>
     </nav>
