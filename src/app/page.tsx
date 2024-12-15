@@ -1,4 +1,4 @@
-import Navbar from "@/Components/Navbar";
+import Navbar from "@/app/Components/Navbar";
 import Link from "next/link";
 
 const Home = () => {
